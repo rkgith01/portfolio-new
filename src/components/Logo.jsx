@@ -16,7 +16,7 @@ const Logo = () => {
   }, [theme, resolvedTheme]);
   return (
     <>
-      <Link href="/" aria-label="Home" className="relative group" prefetch>
+      <Link href="/" aria-label="Home" className="relative group">
         <Image
           src={currentLogo}
           alt="Developer Logo"

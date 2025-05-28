@@ -27,7 +27,7 @@ export default function BlogPostData({ slug, post, posts }) {
             </p>
             <a
               href="/blog"
-              prefetch
+              aria-label="Back to blog"
               rel="noopener noreferrer"
               // target="_blank"
               className="text-black dark:text-orange-200 flex items-center gap-1 hover:font-bold"

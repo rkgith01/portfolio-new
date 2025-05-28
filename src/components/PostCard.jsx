@@ -6,7 +6,6 @@ const PostCard = ({ post, readingTime }) => {
       href={`/posts/${post.slug}`}
       target="_blank"
       rel="noopener noreferrer"
-      prefetch
       aria-label={`Read post: ${post.title}`}
     >
       <article
