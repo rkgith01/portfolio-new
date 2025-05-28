@@ -90,7 +90,7 @@ const footer = {
   title: "Raj Kapadia",
   intro:
     "Raj Kapadia is an ambitious software developer, an enthusiastic learner, and a devoted team player. With a strong foundation in coding principles and a passion for innovation, Raj is eager to leverage his problem-solving skills to contribute to challenging projects. He is an active participant in several open-source communities and is dedicated to continuous learning and growth.",
-  vLink1: "/",
+  vLink1: "https://rajkapadia-devv2.vercel.app/",
   vLink2: "https://rajkapadia-dev.vercel.app/",
 };
 
