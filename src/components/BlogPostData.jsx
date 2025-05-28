@@ -27,7 +27,7 @@ export default function BlogPostData({ slug, post, posts }) {
             </p>
             <a
               href="/blog"
-              prefetch={true}
+              prefetch
               rel="noopener noreferrer"
               // target="_blank"
               className="text-black dark:text-orange-200 flex items-center gap-1 hover:font-bold"
@@ -49,9 +49,9 @@ export default function BlogPostData({ slug, post, posts }) {
           <div className="mt-4">
             {posts.length >= 3 && (
               <Link
-                prefetch={true}
                 href="/blog"
                 target="_blank"
+                rel="noopener noreferrer"
                 // className="text-center"
                 className="bg-yellow-400  hover:bg-yellow-700  text-center dark:bg-amber-500 hover:dark:bg-amber-600 text-black hover:text-white dark:text-white dark:hover:text-black mt-5 p-2 rounded-lg transition-colors duration-300 shadow-lg box-border "
               >

@@ -84,6 +84,7 @@ const ContactData = () => {
                     <a
                       href={item.resumeLink}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-white dark:text-blue-400 hover:font-semibold"
                     >
                       here.
@@ -96,6 +97,7 @@ const ContactData = () => {
                     <a
                       href={item.projectLink}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-white dark:text-blue-400 hover:font-semibold"
                     >
                       page.
@@ -108,6 +110,7 @@ const ContactData = () => {
                     <a
                       href={item.blogLink}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-white dark:text-blue-400 hover:font-semibold"
                     >
                       blog.
@@ -126,7 +129,7 @@ const ContactData = () => {
                         // <a href="#email-me">
                         //   {item.headingTwo + " " + "coming soon..."}
                         // </a>
-                        (<ModalForm />)
+                        <ModalForm />
                       )}
                     </h2>
                     {item.emailLink ? (
@@ -153,6 +156,7 @@ const ContactData = () => {
                         <a
                           href={item.siteLink}
                           target="_blank"
+                          rel="noopener noreferrer"
                           className="text-white dark:text-blue-400 hover:font-semibold"
                         >
                           how i built this site?.

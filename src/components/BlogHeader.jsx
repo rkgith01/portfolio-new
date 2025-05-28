@@ -66,6 +66,7 @@ const BlogHeader = () => {
               {avatarProps.portfolio.text}{" "}
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href={avatarProps.portfolio.link}
                 className="text-white dark:text-amber-600 hover:font-semibold"
               >
@@ -76,6 +77,7 @@ const BlogHeader = () => {
               {avatarProps.portfolio.text2}{" "}
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href={avatarProps.portfolio.link2}
                 className="text-white dark:text-amber-600 hover:font-semibold"
               >

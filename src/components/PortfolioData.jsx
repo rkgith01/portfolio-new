@@ -113,7 +113,7 @@ const PortfolioData = () => {
                         <a
                           href={category.githubLink}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                         >
                           <category.icon className="text-3xl hover:text-orange-500 dark:hover:text-orange-400" />
                         </a>
@@ -122,7 +122,7 @@ const PortfolioData = () => {
                         <a
                           href={category.projectLink}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                         >
                           <category.icon2 className="text-3xl hover:text-orange-500 dark:hover:text-orange-400" />
                         </a>

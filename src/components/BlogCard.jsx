@@ -15,7 +15,7 @@ const BlogCard = (props) => {
         <Link
           href={`/posts/${post.slug}`}
           aria-label={`Read ${post.title}`}
-          prefetch={true}
+          prefetch
           target="_blank"
           className="md:w-1/2 cursor-pointer"
         >
@@ -49,7 +49,7 @@ const BlogCard = (props) => {
               href={`/posts/${post.slug}`}
               aria-label={`Read ${post.title}`}
               target="_blank"
-              prefetch={true}
+              prefetch
             >
               <span className="hover:bg-yellow-700 bg-yellow-500 text-black hover:text-gray-100 dark:text-amber-200 dark:bg-slate-500 dark:hover:bg-gray-600  font-bold py-2 px-4 rounded-full mt-4 absolute bottom-2 right-2 ">
                 View Post

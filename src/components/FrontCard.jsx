@@ -31,8 +31,9 @@ const FrontCard = ({ postInfo, postToShow }) => {
               <Link
                 href={`/posts/${post.slug}`}
                 aria-label={`Read ${post.title}`}
-                prefetch={true}
+                prefetch
                 target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block mt-4 bg-yellow-700 dark:bg-gray-500 p-2 rounded-lg text-gray-200 hover:text-yellow-200 dark:text-yellow-400 dark:hover:text-yellow-300 font-medium"
               >
                 Read more →
