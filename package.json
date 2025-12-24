@@ -15,7 +15,7 @@
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "markdown-to-jsx": "^7.7.6",
-    "next": "15.3.2",
+    "next": "15.3.8",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
