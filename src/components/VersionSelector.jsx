@@ -26,7 +26,7 @@ const VersionSelector = () => {
           variant="solid"
           size="sm"
           startContent={<FaCodeBranch />}
-          className="rounded-full bg-yellow-600 dark:bg-[#0e0e0e] text-black dark:text-white"
+          className="rounded-full bg-yellow-600 dark:bg-[#282828] text-black dark:text-white"
         >
           Version
         </Button>

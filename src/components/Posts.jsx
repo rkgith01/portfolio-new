@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import PostCard from "./PostCard";
+import { NavButton } from "./HeroMainText";
 import { calculateReadingTime } from "@/../contants/constant";
 import { Button } from "@heroui/react";
 import BackSideCard from "./BackSideCard";
@@ -40,14 +41,14 @@ const Posts = ({ posts }) => {
         </Button>
       </div>
 
-      <div className="relative w-full h-full min-h-72 [perspective:1000px]">
+      <div className="relative w-full h-full min-h-64 perspective">
         <div
           className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
             isFlipped ? "rotate-y-180" : ""
           }`}
         >
           {/* Front side */}
-          <div className="absolute w-full h-full [backface-visibility:hidden] bg-transparent space-y-4">
+          <div className="absolute w-full h-full backface-hidden bg-transparent space-y-4">
             {posts.slice(0, postToShow).map((post, i) => (
               <div
                 key={i}
@@ -61,16 +62,15 @@ const Posts = ({ posts }) => {
             ))}
             {posts.length >= postToShow && (
               <div className="flex items-center justify-center w-full mt-4">
-                <Button
-                  type="button"
-                  variant="bordered"
-                  aria-label="All Posts"
+                <NavButton
                   onPress={handleClick}
+                  // variant="bordered"
+                  ariaLabel="All Posts"
+                  className="dark:text-black dark:border-amber-500 border-blue-500"
                   endContent={<RiArrowRightLine size={20} />}
-                  className="hover:animate-appearance-in w-[40%] bg-yellow-500 hover:bg-yellow-700 hover:text-amber-400 dark:bg-[#0E0E0E] dark:hover:bg-[#3c3c3c] font-light hover:font-semibold rounded-full text-black dark:text-yellow-200 dark:hover:text-yellow-300"
                 >
-                  All posts
-                </Button>
+                  All Posts
+                </NavButton>
               </div>
             )}
           </div>
@@ -84,3 +84,16 @@ const Posts = ({ posts }) => {
 };
 
 export default Posts;
+{
+  /* <NavButton
+  // type="button"
+  variant="bordered"
+  aria-label="All Posts"
+  onPress={handleClick}
+  endContent={<RiArrowRightLine size={20} />}
+  className="border-blue-500 text-black dark:text-amber-500 dark:border-amber-500 rounded-full shadow-lg"
+  // className="w-[40%] bg-yellow-500 hover:bg-yellow-700 hover:text-amber-400 dark:bg-[#0E0E0E] dark:hover:bg-[#3c3c3c] font-light hover:font-semibold rounded-full text-black dark:text-yellow-200 dark:hover:text-yellow-300"
+>
+All posts
+</NavButton> */
+}

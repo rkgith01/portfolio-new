@@ -1,5 +1,3 @@
-// "use client";
-
 import Markdown from "markdown-to-jsx";
 import React from "react";
 import PostCard from "@/components/PostCard";
@@ -16,50 +14,63 @@ export default function BlogPostData({ slug, post, posts }) {
 
   return (
     <>
-      <main className="container mx-auto py-6 flex flex-col lg:flex-row gap-2">
-        <article className="w-full mx-auto flex-2">
-          <Markdown className="prose mx-auto px-4 py-8 space-y-6 text-black dark:text-white">
+      <main className="container mx-auto py-6 flex flex-col lg:flex-row gap-8 px-4 max-w-7xl">
+        {/* Main Article */}
+        <article className="flex-1 max-w-full lg:max-w-[60%] mx-auto">
+          <Markdown className="prose prose-lg dark:prose-invert max-w-none text-black dark:text-white">
             {post.content}
           </Markdown>
-          <div className="flex justify-between items-center mt-8 px-2">
-            <p className="text-gray-900 dark:text-orange-400 text-md">
+
+          {/* Reading time and back link */}
+          <div className="flex justify-between items-center mt-10 px-2">
+            <p className="text-gray-900 dark:text-orange-400 text-md font-medium">
               {readingTime} min read
             </p>
-            <a
+            <Link
               href="/blog"
               aria-label="Back to blog"
-              rel="noopener noreferrer"
-              // target="_blank"
-              className="text-black dark:text-orange-200 flex items-center gap-1 hover:font-bold"
+              className="flex items-center gap-1 text-black dark:text-orange-200 hover:font-semibold transition"
             >
-              <RiArrowGoBackLine className="hover:font-bold" />
-              back to blog
-            </a>
+              <RiArrowGoBackLine size={20} />
+              <span>Back to blog</span>
+            </Link>
           </div>
-          <div>{bottomBtn}</div>
-          <hr className="my-4" />
+
+          {/* Additional bottom button */}
+          <div className="mt-6">{bottomBtn}</div>
+
+          <hr className="my-8 border-gray-300 dark:border-gray-700" />
         </article>
 
-        <div className="lg:mt-[10rem] md:mt-[2rem] lg:w-[40%] w-full mx-2">
+        {/* Sidebar with filtered posts */}
+        <aside className="lg:w-[35%] w-full mx-auto lg:mt-[10rem] md:mt-[2rem] space-y-6">
           {filteredPosts.map((post) => (
-            <div key={post.slug} className="my-2 hover:scale-95 transition-all">
-              <PostCard post={post} readingTime={readingTime} />
+            <div
+              key={post.slug}
+              className="transform transition-transform hover:scale-95"
+            >
+              <PostCard
+                post={post}
+                readingTime={calculateReadingTime(post.content)}
+              />
             </div>
           ))}
-          <div className="mt-4">
-            {posts.length >= 3 && (
+
+          {/* More posts link */}
+          {posts.length >= 3 && (
+            <div className="mt-8 flex justify-start">
               <Link
                 href="/blog"
                 target="_blank"
                 rel="noopener noreferrer"
-                // className="text-center"
-                className="bg-yellow-400  hover:bg-yellow-700  text-center dark:bg-amber-500 hover:dark:bg-amber-600 text-black hover:text-white dark:text-white dark:hover:text-black mt-5 p-2 rounded-lg transition-colors duration-300 shadow-lg box-border "
+                className="block w-1/2 text-center bg-yellow-400 hover:bg-yellow-700  dark:bg-amber-500 hover:dark:bg-amber-600 text-black dark:text-white hover:text-white dark:hover:text-black rounded-lg py-3 font-semibold shadow-lg transition-colors duration-300"
+                aria-label="Check out more blog posts"
               >
-                <span>checkout more...</span>
+                Checkout more...
               </Link>
-            )}
-          </div>
-        </div>
+            </div>
+          )}
+        </aside>
       </main>
 
       <PostFooter />

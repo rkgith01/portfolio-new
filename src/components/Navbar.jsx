@@ -52,7 +52,7 @@ const NavbarPage = () => {
                     fill
                     sizes="(max-width: 768px) 100px, (max-width: 1024px) 140px, 180px"
                     className="object-cover"
-                    fetchPriority="low"
+                    // fetchPriority="low"
                   />
                 </div>
               </DrawerHeader>

@@ -32,19 +32,50 @@
 //   );
 // }
 
+// import Providers from "@/components/providers";
+// import "./globals.css";
+// import { inter, merriweather, montserrat, geistMono } from "../utils/font";
+// // lobster,
+// // poppins,
+// // roboto,
+// // geistSans,
+// // lavishlyYours,
+// // import ColorPicker from "@/components/ColorPicker";
+
+// export const metadata = {
+//   title: "raj.dev",
+//   description: "Software Engineer",
+//   icons: {
+//     icon: "/flogo.png",
+//   },
+// };
+// // ${lavishlyYours.variable}
+// const fontClasses = `
+// ${inter.variable}
+// ${montserrat.variable}
+// ${merriweather.variable}
+// ${geistMono.variable}
+// `;
+// // ${roboto.variable}
+// // ${poppins.variable}
+// // ${lobster.variable}
+
+// export default function RootLayout({ children }) {
+//   return (
+//     <html lang="en" suppressHydrationWarning={true} className={fontClasses}>
+//       <body className={fontClasses}>
+//         <Providers>
+//           {children}
+//           {/* <ColorPicker /> */}
+//         </Providers>
+//       </body>
+//     </html>
+//   );
+// }
+
 import Providers from "@/components/providers";
-import {
-  lavishlyYours,
-  lobster,
-  inter,
-  poppins,
-  roboto,
-  merriweather,
-  montserrat,
-  geistSans,
-  geistMono,
-} from "../utils/font";
 import "./globals.css";
+import { inter, merriweather, montserrat, geistMono } from "../utils/font";
 
 export const metadata = {
   title: "raj.dev",
@@ -53,12 +84,20 @@ export const metadata = {
     icon: "/flogo.png",
   },
 };
-const fontClasses = `${inter.variable} ${lobster.variable} ${lavishlyYours.variable} ${poppins.variable} ${roboto.variable} ${merriweather.variable} ${montserrat.variable} ${geistSans.variable} ${geistMono.variable}`;
+
+const fontClasses = [
+  inter.variable,
+  montserrat.variable,
+  merriweather.variable,
+  geistMono.variable,
+].join(" ");
+
+// console.log(fontClasses);
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning={true} className={fontClasses}>
-      <body className={fontClasses}>
+    <html lang="en" suppressHydrationWarning className={fontClasses}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

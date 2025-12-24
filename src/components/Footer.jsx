@@ -35,7 +35,7 @@ const Footer = () => {
               target="_blank"
               className="flex items-center justify-center"
             >
-              <link.icon className="w-8 h-8 hover:text-orange-700 dark:hover:text-amber-400 text-black dark:text-white" />
+              <link.icon className="w-8 h-8 hover:text-white transition-colors dark:hover:text-amber-400 text-black dark:text-white" />
             </Link>
           ))}
         </div>

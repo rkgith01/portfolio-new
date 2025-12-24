@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-family: var(--font-poppins, 'Poppins, sans-serif');
-}
 
-html, body {
-  font-family: var(--font-family);
-  transition: font-family 0.3s ease; 
-}
+html {
+    font-family: var(--font-family, var(--font-inter), sans-serif);
+    transition: font-family 250ms ease-in; 
+  }
 
 .perspective {
   perspective: 1000px;
@@ -21,7 +18,9 @@ html, body {
   transform: rotateY(180deg);
 }
 
-
+.hero-readTime{
+  text-shadow: 0px -1px 1px #bb8c32;
+}
 ::-webkit-scrollbar {
   display: none;
 }

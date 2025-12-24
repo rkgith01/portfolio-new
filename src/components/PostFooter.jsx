@@ -26,14 +26,14 @@ const PostFooter = () => {
     return null;
   }
   return (
-    <div className="mx-4 px-2 mb-4 flex flex-col md:flex-row lg:flex-row gap-4 justify-normal dark:bg-gray-700 bg-yellow-600 rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-center w-full md:w-[100%] lg:w-1/2">
+    <div className="mx-4 mb-4 flex flex-col md:flex-row lg:flex-row gap-4 justify-normal dark:bg-gray-700 bg-yellow-600 rounded-lg shadow-md px-6 py-4">
+      <div className="flex m-0 items-center justify-center w-full md:w-[100%] lg:w-1/2">
         <Image
           width={150}
           height={150}
           loading="lazy"
           src={heroImg}
-          className="w-[150px] h-[150px] rounded-full border-2"
+          className="w-[150px] h-[150px] rounded-full border-2 object-cover"
           alt="footer img"
         />
       </div>

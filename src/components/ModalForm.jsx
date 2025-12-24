@@ -19,7 +19,7 @@ const ModalForm = () => {
   return (
     <div className="space-y-4">
       <div className="flex gap-2 items-center justify-center">
-        <h2 className="text-pretty text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold">
           <a href="#and-there's-more">Use the Classic form:</a>
         </h2>
         <Tooltip

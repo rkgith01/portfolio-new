@@ -7,20 +7,26 @@ import { AccAnimateImage } from "./AnimateImage";
 import { bottomBtn } from "@/../contants/constant";
 import { TbHandRingFinger } from "react-icons/tb";
 
-// Custom Hook for Smooth Scroll
+// Custom Hook for Smooth Scroll (improved: event delegation, cleanup)
 const useSmoothScroll = () => {
   useEffect(() => {
-    const smoothScrollToAnchor = () => {
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", (e) => {
-          e.preventDefault();
-          document.querySelector(anchor.getAttribute("href")).scrollIntoView({
-            behavior: "smooth",
-          });
-        });
-      });
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+
+      e.preventDefault();
+      const targetId = anchor.getAttribute("href");
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     };
-    smoothScrollToAnchor();
+
+    document.addEventListener("click", handleAnchorClick);
+
+    return () => {
+      document.removeEventListener("click", handleAnchorClick);
+    };
   }, []);
 };
 
@@ -29,31 +35,41 @@ const HoverSection = ({ title, children, id }) => (
   <section
     id={id}
     className="relative p-4 border-2 border-yellow-700 rounded-lg shadow-lg dark:shadow-md dark:shadow-slate-500 transition-all hover:bg-opacity-100 group cursor-default"
+    aria-labelledby={`${id}-title`}
   >
     {/* Large text that fades out on hover */}
-    <div className="absolute inset-0 flex items-center justify-center text-2xl xl:text-5xl lg:text-4xl md:text-3xl drop-shadow-lg font-bold dark:text-gray-300 text-black group-hover:opacity-0 transition-opacity">
+    <h2
+      id={`${id}-title`}
+      className="absolute inset-0 flex items-center justify-center text-2xl xl:text-5xl lg:text-4xl md:text-3xl drop-shadow-lg font-bold dark:text-gray-300 text-black group-hover:opacity-0 transition-opacity pointer-events-none"
+      aria-hidden="true"
+    >
       {title}
-    </div>
+    </h2>
 
     {/* Actual content, visible on hover */}
     <div className="blur-2xl group-hover:blur-0 transition-all cursor-default">
       {children}
     </div>
+
     {/* Span with hand icon, visible only on small screens */}
-    <span className="absolute right-0 bottom-0 rounded-full group-hover:opacity-0 transition-opacity duration-300 bg-black sm:hidden">
+    <span
+      className="absolute right-0 bottom-0 rounded-full group-hover:opacity-0 transition-opacity duration-300 bg-black sm:hidden flex items-center justify-center p-1"
+      aria-hidden="true"
+    >
       <TbHandRingFinger size={30} color="white" />
-      <span className="hidden hover:visible">hover me</span>
+      {/* Removed hidden hover:visible span because it's not accessible or useful */}
     </span>
   </section>
 );
 
-// External Link Component
+// External Link Component (adds `aria-label` for better screen reader clarity)
 const ExternalLink = ({ href, label }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="dark:text-blue-400 text-white hover:text-gray-600  dark:hover:text-cyan-500 transition-colors"
+    className="dark:text-blue-400 text-white hover:text-gray-600 dark:hover:text-cyan-500 transition-colors"
+    aria-label={`${label} (opens in a new tab)`}
   >
     {label}
   </a>
@@ -98,8 +114,8 @@ const MoreInfo = ({
     </p>
     <p>
       Learn about <ExternalLink href={siteLink} label="how I built this site" />
-      . Check out my CodePen examples:
-      <span className="space-x-2">
+      . Check out my CodePen examples:{" "}
+      <span className="space-x-2" aria-label="CodePen examples">
         {penLinks.map((link, index) => (
           <ExternalLink key={index} href={link.url} label={`#${link.label}`} />
         ))}
@@ -139,22 +155,18 @@ const Learning = ({ certificateLink, githubLink }) => (
 );
 
 // SkillBelt Component
-const SkillBelt = () => {
-  // const [isAccordionOpen, setAccordionOpen] = useState(false);
-
-  return (
-    <div title="Skill Belt" id="skill-belt" className="my-4">
-      <AccAnimateImage />
-    </div>
-  );
-};
+const SkillBelt = () => (
+  <div title="Skill Belt" id="skill-belt" className="my-4">
+    <AccAnimateImage />
+  </div>
+);
 
 // Main AboutData Component
 const AboutData = () => {
   useSmoothScroll(); // Smooth scroll functionality
 
   return (
-    <div className="min-h-screen w-full overflow-auto flex flex-col justify-center">
+    <main className="min-h-screen w-full overflow-auto flex flex-col justify-center">
       <div className="p-8 sm:p-14 text-black dark:text-white">
         <article className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
           <HoverSection title="My Intro" id="my-intro">
@@ -205,7 +217,7 @@ const AboutData = () => {
       </div>
       <Footer />
       <SmoothScroll />
-    </div>
+    </main>
   );
 };
 

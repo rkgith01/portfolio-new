@@ -1,5 +1,4 @@
 // import React from "react";
-// // import BlogHeader from "@/components/BlogHeader";
 // import Footer from "@/components/Footer";
 // import getPostMetadata from "@/utils/getData";
 // import BlogSearch from "@/components/BlogSearch";

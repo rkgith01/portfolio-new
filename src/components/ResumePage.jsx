@@ -142,10 +142,10 @@ export const NavItem = ({ href, children }) => {
   };
 
   return (
-    <li className="relative">
+    <li className="relative list-none">
       <a
         href={href}
-        className="hover:bg-gray-200 dark:hover:bg-gray-700 py-1 px-1  rounded-md transition-colors duration-300"
+        className="hover:bg-gray-200 dark:hover:bg-gray-700 py-1 px-1 rounded-md transition-colors duration-300"
         onClick={smoothScroll}
       >
         {children}

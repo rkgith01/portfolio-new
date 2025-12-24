@@ -5,9 +5,9 @@ const HeroPosts = () => {
   const posts = getPostMetadata("src/blogposts");
 
   return (
-    <div className="flex flex-col items-center justify-center xl:w-[42%] lg:w-[42%] md:w-[62%] sm:w-[75%] w-full">
+    <section className="flex flex-col items-center justify-center w-full max-w-2xl">
       <Posts posts={posts} />
-    </div>
+    </section>
   );
 };
 

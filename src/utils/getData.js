@@ -14,7 +14,7 @@ export default function getPostMetadata(basePath) {
       ? matterResult.data.tag
       : [matterResult.data.tag];
 
-    return {
+    const postInfo = {
       title: matterResult.data.title,
       bio: matterResult.data.description,
       tags: tags,
@@ -23,6 +23,8 @@ export default function getPostMetadata(basePath) {
       slug: filename.replace(".md", ""),
       content: matterResult.content,
     };
+
+    return postInfo;
   });
 
   return posts;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -12,86 +12,85 @@ import {
 import { FaFonticonsFi } from "react-icons/fa";
 
 const fontMap = {
-  Arial: "Arial, sans-serif",
-  "Times New Roman": "'Times New Roman', serif",
-  Roboto: "var(--font-roboto), sans-serif",
-  Poppins: "var(--font-poppins), sans-serif",
   Inter: "var(--font-inter), sans-serif",
   Montserrat: "var(--font-montserrat), sans-serif",
   Merriweather: "var(--font-merriweather), serif",
-  "Open Sans": "var(--font-open-sans), sans-serif",
-  Lobster: "var(--font-lobster)",
   geistMono: "var(--font-geist-mono), monospace",
-  geistSans: "var(--font-geist-sans), sans-serif",
 };
 
 const STORAGE_KEY = "selectedFont";
-const DEFAULT_FONT = "Poppins";
+const DEFAULT_FONT = "Inter";
 
 const FontSelector = () => {
-  const [selectedKeys, setSelectedKeys] = useState(new Set([DEFAULT_FONT]));
-
-  const selectedFont = useMemo(() => {
-    return Array.from(selectedKeys)[0] || DEFAULT_FONT;
-  }, [selectedKeys]);
-
+  const [selectedFont, setSelectedFont] = useState(DEFAULT_FONT);
+  const docFun = (font) => {
+    document.documentElement.style.setProperty("--font-family", fontMap[font]);
+  };
+  // Apply saved font on initial mount
   useEffect(() => {
-    const savedFont =
-      typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY);
-    const fontToApply = savedFont || DEFAULT_FONT;
-    setSelectedKeys(new Set([fontToApply]));
-    applyFont(fontToApply);
+    const savedFont = localStorage.getItem(STORAGE_KEY) || DEFAULT_FONT;
+    setSelectedFont(savedFont);
+    docFun(savedFont);
   }, []);
 
-  const applyFont = (font) => {
-    const fontValue = fontMap[font] || fontMap[DEFAULT_FONT];
-    document.documentElement.style.setProperty("--font-family", fontValue);
-  };
-
-  const handleFontChange = (keys) => {
-    const font = Array.from(keys)[0];
-    if (font === selectedFont) return; // prevent redundant change
-    setSelectedKeys(new Set([font]));
-    applyFont(font);
+  const applyFont = useCallback((font) => {
+    docFun(font);
     localStorage.setItem(STORAGE_KEY, font);
-
     addToast({
-      title: `Font Changed`,
+      title: "Font Changed",
       description: `${font} applied successfully.`,
       timeout: 2000,
+      type: "success",
     });
-  };
+  }, []);
+
+  const handleFontChange = useCallback(
+    (keys) => {
+      const font = Array.from(keys)[0];
+      if (!font || font === selectedFont) return;
+
+      // Set state first (this will re-render once)
+      setSelectedFont(font);
+      applyFont(font);
+    },
+    [selectedFont, applyFont]
+  );
+
+  // Memoize selected/disabled keys so they're stable
+  const selectedKeys = useMemo(() => new Set([selectedFont]), [selectedFont]);
+  const disabledKeys = useMemo(() => [selectedFont], [selectedFont]);
 
   return (
     <div className="relative inline-block">
-      <Dropdown className="bg-yellow-500 dark:bg-gray-950 border-2 border-black dark:border-gray-500 rounded-lg shadow-lg">
+      <Dropdown className="z-50 bg-yellow-500 border-2 border-black dark:bg-gray-900 dark:border-gray-700 rounded-md shadow-lg">
         <DropdownTrigger>
           <Button
             isIconOnly
             variant="bordered"
-            className="p-2 rounded-full hover:bg-yellow-600 dark:hover:bg-gray-700 transition border-black dark:border-gray-500"
             aria-label="Font Selector"
+            className="p-2 rounded-full hover:bg-yellow-500 dark:hover:bg-gray-700 transition-colors border-black dark:border-gray-400"
           >
-            <FaFonticonsFi size={22} />
+            <FaFonticonsFi size={20} />
           </Button>
         </DropdownTrigger>
 
         <DropdownMenu
-          aria-label="Font Selection"
+          aria-label="Font Selection Dropdown"
           selectionMode="single"
           selectedKeys={selectedKeys}
-          disabledKeys={[selectedFont]}
+          disabledKeys={disabledKeys}
           onSelectionChange={handleFontChange}
           className="max-h-[300px] overflow-y-auto"
         >
           {Object.keys(fontMap).map((font) => (
             <DropdownItem
               key={font}
-              className={`capitalize ${
+              className={`capitalize transition-all ${
                 font === selectedFont
-                  ? "font-bold text-indigo-700 dark:text-yellow-600"
-                  : ""
+                  ? "italic text-white bg-black dark:text-yellow-400"
+                  : "hover:text-indigo-500 dark:hover:text-yellow-300"
               }`}
+              aria-selected={font === selectedFont}
             >
               {font}
             </DropdownItem>

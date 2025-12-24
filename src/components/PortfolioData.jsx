@@ -1,3 +1,4 @@
+// PortfolioData.jsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -7,16 +8,11 @@ import { NavItem } from "./ResumePage";
 import { FaCode } from "react-icons/fa";
 import Footer from "./Footer";
 import SmoothScroll from "./SmoothScroll";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 
-// ✅ Swiper Imports
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectFade } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-import Link from "next/link";
-import { Button } from "@heroui/react";
+const SwiperGallery = dynamic(() => import("./SwiperGallery"), {
+  ssr: false,
+});
 
 const tabs = [
   { label: "Full Stack" },
@@ -53,39 +49,40 @@ const PortfolioData = () => {
     <div>
       <section>
         <div className="container px-6 py-10 mx-auto">
-          <h1 className="flex items-center justify-center gap-2 text-2xl font-semibold md:text-center text-black capitalize lg:text-3xl dark:text-white">
-            <span>Latest Work</span>
-            <FaCode className="w-8 h-8" /> :
-          </h1>
+          <section className="mb-8 text-center">
+            <h1 className="flex items-center justify-center gap-2 text-2xl font-semibold md:text-center text-black capitalize lg:text-3xl dark:text-white">
+              <span>Latest Work</span>
+              <FaCode className="w-8 h-8" /> :
+            </h1>
 
-          {/* Tabs */}
-          <div className="flex py-4 mt-4 overflow-x-auto md:justify-center dark:border-gray-700">
-            {tabs.map((tab, index) => (
-              <p
-                key={index}
-                className={`h-12 px-8 py-2 text-sm cursor-pointer whitespace-nowrap focus:outline-none ${
-                  activeTab === index
-                    ? "text-orange-800 border-orange-800 dark:text-amber-300 border-b-2 dark:border-amber-400"
-                    : "text-black border-b-2 border-orange-200 dark:text-white dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-300"
-                }`}
-                onClick={() => handleTabClick(index)}
-              >
-                {tab.label}
-              </p>
-            ))}
-          </div>
+            {/* Tabs */}
+            <div className="flex py-4 mt-4 overflow-x-auto md:justify-center dark:border-gray-700">
+              {tabs.map((tab, index) => (
+                <p
+                  key={index}
+                  className={`h-12 px-8 py-2 text-sm cursor-pointer whitespace-nowrap focus:outline-none ${
+                    activeTab === index
+                      ? "text-orange-800 border-orange-800 dark:text-amber-300 border-b-2 dark:border-amber-400"
+                      : "text-black border-b-2 border-orange-200 dark:text-white dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-300"
+                  }`}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {tab.label}
+                </p>
+              ))}
+            </div>
 
-          {/* Category nav links */}
-          <div className="flex items-center justify-center p-4 gap-2 flex-wrap bg-yellow-600 dark:bg-gray-600 rounded-lg">
-            {filteredCategories.map((category, index) => (
-              <NavItem href={"#" + category.linkTitle} key={index}>
-                <span className="text-sm capitalize text-black dark:text-white">
-                  {category.title}
-                </span>
-              </NavItem>
-            ))}
-          </div>
-
+            {/* Category nav links */}
+            <div className="flex items-center justify-center px-6 py-4 gap-4 flex-wrap bg-yellow-600 dark:bg-gray-600 rounded-lg">
+              {filteredCategories.map((category, index) => (
+                <NavItem href={"#" + category.linkTitle} key={index}>
+                  <span className="text-sm capitalize text-black dark:text-white dark:border-red-100 border-b-2 border-black hover:border-orange-500 dark:hover:border-orange-400">
+                    {category.title}
+                  </span>
+                </NavItem>
+              ))}
+            </div>
+          </section>
           {/* Projects */}
           <section className="mt-8 space-y-8 lg:mt-12">
             {filteredCategories.map((category, index) => (
@@ -141,35 +138,15 @@ const PortfolioData = () => {
                   </div>
                 </div>
 
-                {/* Swiper Slider */}
+                {/* ✅ Lazy SwiperGallery */}
                 <div className="mt-4 lg:w-1/2 lg:mt-0">
-                  <Swiper
-                    modules={[EffectFade, Pagination]}
-                    effect="fade"
-                    pagination={{ clickable: true }}
-                    spaceBetween={50}
-                    slidesPerView={1}
-                    className="w-full h-64 md:h-96"
-                  >
-                    {category.images.map((image, idx) => (
-                      <SwiperSlide key={idx}>
-                        <Image
-                          width={500}
-                          height={500}
-                          className="drop-shadow-2xl object-cover w-full h-full rounded-lg grayscale"
-                          src={image}
-                          alt="project image"
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                  <SwiperGallery images={category.images} />
                 </div>
               </motion.section>
             ))}
           </section>
         </div>
 
-        {/* Scroll To Top */}
         {showScroll && <SmoothScroll />}
 
         <div className="flex items-center justify-center p-4">

@@ -22,6 +22,7 @@ const LandingLayout = ({ children }) => {
         " " +
         ""
       }
+      // style={{ backgroundColor: "var(--bg-color)" }}
     >
       <div className="flex items-center justify-between px-4 py-2 ">
         <GoBackBtn />
